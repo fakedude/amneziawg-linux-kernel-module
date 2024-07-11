@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           amneziawg-dkms
-Version:        1.0.20240213
+Version:        1.0.20240711
 Release:        1%{?dist}
 Epoch:          1
 URL:            https://www.wireguard.com/
@@ -24,6 +24,7 @@ Requires:       make
 Requires:       bc
 Requires:       yum-utils
 Requires:       rpm-build
+Requires:       python3-devel
 
 %description
 WireGuard is a novel VPN that runs inside the Linux Kernel and uses
@@ -42,9 +43,7 @@ sed -i 's/install .* -D -t\(.\+\) /mkdir -p \1 \&\& \0/' %{_builddir}/amneziawg-
 
 # Set version in dkms.conf and Makefile
 sed -i "s/^PACKAGE_VERSION=.*/PACKAGE_VERSION=\"%{version}\"/" %{_builddir}/amneziawg-linux-kernel-module-%{version}/src/dkms.conf
-sed -i "s/^MAKE\[0\]=\"make -C \/var\/lib\/dkms\/amneziawg\/.*/MAKE[0]=\"make -C \/var\/lib\/dkms\/amneziawg\/%{version}\/build\"/" %{_builddir}/amneziawg-linux-kernel-module-%{version}/src/dkms.conf
 sed -i "s/^WIREGUARD_VERSION = .*/WIREGUARD_VERSION = %{version}/" %{_builddir}/amneziawg-linux-kernel-module-%{version}/src/Makefile
-
 
 %build
 
