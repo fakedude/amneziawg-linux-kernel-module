@@ -3,7 +3,8 @@
 KERNEL_VERSION=$1
 
 is_modern_kernel() {
-  local modern=$(echo $KERNEL_VERSION | awk 'BEGIN{ FS="."};
+  local modern
+  modern=$(echo $KERNEL_VERSION | awk 'BEGIN{ FS="."};
       { if ($1 < 5) { print "N"; }
         else if ($1 == 5) {
             if ($2 <= 5) { print "N"; }
@@ -72,19 +73,19 @@ if [[ "${DISTRO_FLAVOR}" =~ debian ]]; then
   PACKAGE_VERSION=$(apt-cache madison "${PACKAGE_NAME}"|grep Sources|head -n 1|awk '{ print $3; }')
   echo "Downloading as $(whoami)"
   apt-get -yq -o APT::Sandbox::User="$(whoami)" source "${PACKAGE_NAME}=${PACKAGE_VERSION}"
-  cd "$(ls -d */)" || exit 255
+  cd "$(ls -d ./*/)" || exit 255
 else
   yumdownloader --source kernel
   [ -f "${HOME}/.rpmmacros" ] && mv "${HOME}/.rpmmacros" "${HOME}/.rpmmacros.orig"
   echo "%_topdir $(pwd)" > "${HOME}/.rpmmacros"
-  rpm -ivh "$(ls *.rpm)"
+  rpm -ivh "$(ls ./*.rpm)"
   cd SPECS || exit 255
   rpmbuild -bp --target="$(uname -m)" --nodeps kernel.spec
   rm -rf "${HOME}/.rpmmacros"
   [ -f "${HOME}/.rpmmacros.orig" ] && mv "${HOME}/.rpmmacros.orig" "${HOME}/.rpmmacros"
   cd ../BUILD || exit 255
   rm -rf ./*-SPECPARTS || exit 255
-  cd "$(ls -d */)" || exit 255
+  cd "$(ls -d ./*/)" || exit 255
   cd "$(ls -d linux*/)" || exit 255
 fi
 
