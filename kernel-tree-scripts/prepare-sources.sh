@@ -83,6 +83,7 @@ else
   rm -rf "${HOME}/.rpmmacros"
   [ -f "${HOME}/.rpmmacros.orig" ] && mv "${HOME}/.rpmmacros.orig" "${HOME}/.rpmmacros"
   cd ../BUILD || exit 255
+  rm -rf ./*-SPECPARTS || exit 255
   cd "$(ls -d */)" || exit 255
   cd "$(ls -d linux*/)" || exit 255
 fi
