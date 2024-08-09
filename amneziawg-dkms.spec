@@ -54,8 +54,8 @@ make DESTDIR=%{buildroot} DKMSDIR=%{_usrsrc}/amneziawg-%{version}/ \
     -C %{_builddir}/amneziawg-linux-kernel-module-%{version}/src dkms-install
 
 %post
-dkms add -m amneziawg -v %{version} --rpm_safe_upgrade || :
-dkms build -m amneziawg -v %{version} || :
+dkms add -m amneziawg -v %{version} -q --rpm_safe_upgrade || :
+dkms build -m amneziawg -v %{version} -q || :
 dkms install -m amneziawg -v %{version} --force || :
 echo "amneziawg-dkms-%{version}-%{release}" > /var/lib/dkms/amneziawg/%{version}/version
 

@@ -26,3 +26,5 @@ src/generated
 src/kernel
 .vscode
 .build*
+*.rpm
+*.tar.gz
