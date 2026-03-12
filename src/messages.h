@@ -8,7 +8,7 @@
 
 #include <crypto/curve25519.h>
 #include <crypto/chacha20poly1305.h>
-#include <crypto/blake2s.h>
+#include "crypto/include/zinc/blake2s.h"
 
 #include <linux/kernel.h>
 #include <linux/param.h>

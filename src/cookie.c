@@ -10,7 +10,6 @@
 #include "ratelimiter.h"
 #include "timers.h"
 
-#include <crypto/blake2s.h>
 #include <crypto/chacha20poly1305.h>
 #include <crypto/utils.h>
 
